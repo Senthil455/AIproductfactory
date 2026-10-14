@@ -1,0 +1,112 @@
+name: Validate Skills, Build Registry & Governed Auto-Merge
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_run:
+    workflows: ["AI Product Factory CI"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-test:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    name: Validate uploaded research scripts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - name: Check skill frontmatter and Python syntax
+        run: uv run scripts/validate_skills.py
+      - name: Run deterministic research smoke tests
+        run: uv run scripts/test_capabilities.py
+
+  update-registry:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - name: Build full README skill registry
+        run: uv run scripts/build_registry.py
+      - name: Publish changed README
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add README.md
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(registry): synchronize skill catalog [skip ci]"
+            git push origin HEAD:main
+          fi
+
+  merge-after-full-ci:
+    name: Merge independently approved PR after all CI jobs pass
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
+    steps:
+      - name: Confirm full CI, skill tests, and independent approval
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+        run: |
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No PR number attached to workflow_run; skipping."
+            exit 0
+          fi
+          if [ "$(gh pr view "$PR_NUMBER" --repo "$REPO" --json isDraft --jq '.isDraft')" != "false" ]; then
+            echo "Draft PR; skipping."
+            exit 0
+          fi
+          required=(
+            "Next.js lint, typecheck and build"
+            "Contract, ownership and recovery regressions"
+            "Real isolated API and React acceptance"
+            "Hydrated Studio, approval and ZIP ownership"
+            "Validate uploaded research scripts"
+          )
+          all_green=false
+          for attempt in $(seq 1 40); do
+            checks=$(gh pr checks "$PR_NUMBER" --repo "$REPO" --json name,state 2>/dev/null || printf '[]')
+            all_green=true
+            for name in "${required[@]}"; do
+              if ! jq -e --arg name "$name" 'any(.[]; .name == $name and .state == "SUCCESS")' <<<"$checks" >/dev/null; then
+                all_green=false
+                break
+              fi
+            done
+            if [ "$all_green" = true ]; then break; fi
+            sleep 30
+          done
+          if [ "$all_green" != true ]; then
+            echo "One or more required CI checks are missing, pending or failed; not merging."
+            exit 0
+          fi
+          decision=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json reviewDecision --jq '.reviewDecision')
+          if [ "$decision" != "APPROVED" ]; then
+            echo "Independent approval is required; no bot self-approval."
+            exit 0
+          fi
+          gh pr merge "$PR_NUMBER" --repo "$REPO" --squash --delete-branch

@@ -455,3 +455,63 @@ If the direction is useful to you:
 <p align="center">
   <strong>Build useful systems. Keep humans in control. Prove what works.</strong>
 </p>
+
+## Automated Skill Registry
+
+<!-- SKILL_REGISTRY_START -->
+| Skill | Description | Scripts | References | One-Click Install |
+| :--- | :--- | :---: | :---: | :--- |
+| [**academic-data-search**](skills/academic-data-search) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill academic-data-search` |
+| [**agent-browser**](skills/agent-browser) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill agent-browser` |
+| [**ai-news-collectors**](skills/ai-news-collectors) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill ai-news-collectors` |
+| [**aminer-open-academic**](skills/aminer-open-academic) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill aminer-open-academic` |
+| [**ASR**](skills/ASR) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill ASR` |
+| [**auto-target-tracker**](skills/auto-target-tracker) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill auto-target-tracker` |
+| [**blog-writer**](skills/blog-writer) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill blog-writer` |
+| [**charts**](skills/charts) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill charts` |
+| [**coding-agent**](skills/coding-agent) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill coding-agent` |
+| [**content-strategy**](skills/content-strategy) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill content-strategy` |
+| [**contentanalysis**](skills/contentanalysis) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill contentanalysis` |
+| [**docx**](skills/docx) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill docx` |
+| [**dream-interpreter**](skills/dream-interpreter) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill dream-interpreter` |
+| [**finance**](skills/finance) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill finance` |
+| [**framer-motion-animator**](skills/framer-motion-animator) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill framer-motion-animator` |
+| [**fullstack-dev**](skills/fullstack-dev) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill fullstack-dev` |
+| [**get-fortune-analysis**](skills/get-fortune-analysis) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill get-fortune-analysis` |
+| [**gift-evaluator**](skills/gift-evaluator) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill gift-evaluator` |
+| [**image-edit**](skills/image-edit) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill image-edit` |
+| [**image-generation**](skills/image-generation) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill image-generation` |
+| [**image-understand**](skills/image-understand) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill image-understand` |
+| [**interview-designer**](skills/interview-designer) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill interview-designer` |
+| [**liquid-glass-design**](skills/liquid-glass-design) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill liquid-glass-design` |
+| [**LLM**](skills/LLM) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill LLM` |
+| [**market-research-reports**](skills/market-research-reports) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill market-research-reports` |
+| [**marketing-mode**](skills/marketing-mode) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill marketing-mode` |
+| [**mindfulness-meditation**](skills/mindfulness-meditation) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill mindfulness-meditation` |
+| [**multi-search-engine**](skills/multi-search-engine) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill multi-search-engine` |
+| [**pdf**](skills/pdf) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill pdf` |
+| [**podcast-generate**](skills/podcast-generate) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill podcast-generate` |
+| [**ppt**](skills/ppt) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill ppt` |
+| [**research-agent**](skills/research-agent) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill research-agent` |
+| [**seo-content-writer**](skills/seo-content-writer) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill seo-content-writer` |
+| [**skill-creator**](skills/skill-creator) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill skill-creator` |
+| [**skill-finder**](skills/skill-finder) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill skill-finder` |
+| [**skill-vetter**](skills/skill-vetter) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill skill-vetter` |
+| [**stock-analysis-skill**](skills/stock-analysis-skill) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill stock-analysis-skill` |
+| [**storyboard-manager**](skills/storyboard-manager) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill storyboard-manager` |
+| [**tailwindcss-advanced-layouts**](skills/tailwindcss-advanced-layouts) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill tailwindcss-advanced-layouts` |
+| [**tailwindcss-animations**](skills/tailwindcss-animations) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill tailwindcss-animations` |
+| [**tauri-v2**](skills/tauri-v2) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill tauri-v2` |
+| [**TTS**](skills/TTS) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill TTS` |
+| [**ui-ux-pro-max**](skills/ui-ux-pro-max) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill ui-ux-pro-max` |
+| [**vercel-react-best-practices**](skills/vercel-react-best-practices) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill vercel-react-best-practices` |
+| [**video-generation**](skills/video-generation) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill video-generation` |
+| [**video-understand**](skills/video-understand) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill video-understand` |
+| [**visual-design-foundations**](skills/visual-design-foundations) | Modular agent skill; description auto-refreshed by CI | — | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill visual-design-foundations` |
+| [**VLM**](skills/VLM) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill VLM` |
+| [**web-reader**](skills/web-reader) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill web-reader` |
+| [**web-search**](skills/web-search) | Modular agent skill; description auto-refreshed by CI | ✅ | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill web-search` |
+| [**web-shader-extractor**](skills/web-shader-extractor) | Modular agent skill; description auto-refreshed by CI | ✅ | ✅ | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill web-shader-extractor` |
+| [**writing-plans**](skills/writing-plans) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill writing-plans` |
+| [**xlsx**](skills/xlsx) | Modular agent skill; description auto-refreshed by CI | — | — | `npx skills add https://github.com/logeshv586-code/AIproductfactory --skill xlsx` |
+<!-- SKILL_REGISTRY_END -->
