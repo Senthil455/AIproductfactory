@@ -18,7 +18,8 @@ from pathlib import Path
 
 
 def parse_simple_frontmatter(md_text: str) -> dict[str, str]:
-    match = re.match(r"^---\s*\n(.*?)\n---\s*\n", md_text, re.DOTALL)
+    text = md_text.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
+    match = re.match(r"\A---\s*\n(.*?)\n---\s*\n?", text, re.DOTALL)
     if not match:
         raise ValueError("Missing YAML frontmatter block (`--- ... ---`) at top of SKILL.md")
     block = match.group(1)
@@ -30,7 +31,7 @@ def parse_simple_frontmatter(md_text: str) -> dict[str, str]:
     # Read YAML block scalar descriptions without external YAML dependencies.
     lines = block.splitlines()
     for i, line in enumerate(lines):
-        if not line.startswith("description:"):
+        if not line.strip().startswith("description:"):
             continue
         indicator = line.split(":", 1)[1].strip()
         if indicator not in ("|", ">", "|-", ">-", "|+", ">+"):
@@ -61,9 +62,9 @@ def validate_python_script(script_path: Path) -> list[str]:
 
 
 def main() -> int:
-    skills_root = Path("skills")
+    skills_root = Path(__file__).resolve().parent.parent / "skills"
     if not skills_root.exists():
-        print("ℹ️ No `skills/` directory found. Skipping skill scan.")
+        print("No skills directory found. Skipping skill scan.")
         return 0
 
     all_errors: list[str] = []
@@ -87,7 +88,7 @@ def main() -> int:
 
         scripts_dir = skill_dir / "scripts"
         if scripts_dir.exists():
-            for py_file in sorted(scripts_dir.glob("*.py")):
+            for py_file in sorted(scripts_dir.rglob("*.py")):
                 for err in validate_python_script(py_file):
                     if "SyntaxError" in err:
                         all_errors.append(f"[{skill_dir.name}] {err}")
