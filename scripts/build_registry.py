@@ -24,9 +24,20 @@ def parse_skill(skill_dir: Path) -> dict | None:
         return None
     text = skill_md.read_text(encoding="utf-8")
     match = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, re.DOTALL)
-    fm = yaml.safe_load(match.group(1)) if match else {}
-    name = fm.get("name", skill_dir.name)
-    desc = fm.get("description", "Modular AI Agent Skill").strip().replace("\n", " ")
+    try:
+        fm = yaml.safe_load(match.group(1)) if match else {}
+    except yaml.YAMLError:
+        # Existing third-party skills may have nonconforming quoted frontmatter.
+        # Keep their registry entries without modifying source skill text.
+        from validate_skills import parse_simple_frontmatter
+        fm = parse_simple_frontmatter(text)
+    if not isinstance(fm, dict):
+        fm = {}
+    name = str(fm.get("name") or skill_dir.name)
+    desc = str(fm.get("description") or "Modular AI Agent Skill").strip().replace("\n", " ").replace("|", "\\|")
+    if desc in ("|", ">", "|-", ">-"):
+        from validate_skills import parse_simple_frontmatter
+        desc = parse_simple_frontmatter(text).get("description", "Modular AI Agent Skill").replace("|", "\\|")
     has_scripts = "✅" if (skill_dir / "scripts").exists() else "—"
     has_refs = "✅" if (skill_dir / "references").exists() else "—"
     install_cmd = f"`npx skills add {REPO_URL} --skill {name}`"
