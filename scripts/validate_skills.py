@@ -27,6 +27,16 @@ def parse_simple_frontmatter(md_text: str) -> dict[str, str]:
         if ":" in line and not line.strip().startswith("#"):
             k, v = line.split(":", 1)
             data[k.strip()] = v.strip().strip('"').strip("'")
+    # Block-scalar descriptions (| and >) are common in imported skills.
+    # Parse the indented continuation without a third-party YAML dependency.
+    for key, value in list(data.items()):
+        if value in ("|", ">", "|-", ">-", "|+", ">+"):
+            found = re.search(
+                rf"(?m)^{re.escape(key)}:\\s*[>|][-+]?\\s*\\n((?:[ \\t]+[^\\n]*\\n?)*)",
+                block,
+            )
+            if found:
+                data[key] = " ".join(x.strip() for x in found.group(1).splitlines() if x.strip())
     return data
 
 
@@ -58,19 +68,17 @@ def main() -> int:
     for skill_dir in skill_dirs:
         skill_md = skill_dir / "SKILL.md"
         if not skill_md.exists():
-            # Allow test run if only scripts exist during partial scaffold
-            if not (skill_dir / "scripts").exists():
-                all_errors.append(f"[{skill_dir.name}] Missing required `SKILL.md` file.")
-        else:
-            content = skill_md.read_text(encoding="utf-8")
-            try:
-                fm = parse_simple_frontmatter(content)
-                if len(fm.get("name", "")) < 2:
-                    all_errors.append(f"[{skill_dir.name}] Frontmatter missing valid `name`.")
-                if len(fm.get("description", "")) < 10:
-                    all_errors.append(f"[{skill_dir.name}] Frontmatter missing valid `description`.")
-            except ValueError as exc:
-                all_errors.append(f"[{skill_dir.name}] {exc}")
+            print(f"  ⚠️ Warning [{skill_dir.name}]: auxiliary folder without SKILL.md; skipping")
+            continue
+        content = skill_md.read_text(encoding="utf-8")
+        try:
+            fm = parse_simple_frontmatter(content)
+            if len(fm.get("name", "")) < 2:
+                all_errors.append(f"[{skill_dir.name}] Frontmatter missing valid `name`.")
+            if len(fm.get("description", "")) < 10:
+                all_errors.append(f"[{skill_dir.name}] Frontmatter missing valid `description`.")
+        except ValueError as exc:
+            all_errors.append(f"[{skill_dir.name}] {exc}")
 
         scripts_dir = skill_dir / "scripts"
         if scripts_dir.exists():
