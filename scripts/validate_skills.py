@@ -70,11 +70,11 @@ def main() -> int:
     all_errors: list[str] = []
     skill_dirs = [d for d in sorted(skills_root.iterdir()) if d.is_dir() and not d.name.startswith(".")]
 
-    print(f"🔍 Auditing {len(skill_dirs)} skills in `{skills_root}/`...")
+    print(f"Auditing {len(skill_dirs)} skills in `{skills_root}/`...")
     for skill_dir in skill_dirs:
         skill_md = skill_dir / "SKILL.md"
         if not skill_md.exists():
-            print(f"  ⚠️ Warning [{skill_dir.name}]: auxiliary folder without SKILL.md; skipping")
+            print(f"  Warning [{skill_dir.name}]: auxiliary folder without SKILL.md; skipping")
             continue
         content = skill_md.read_text(encoding="utf-8")
         try:
@@ -93,15 +93,15 @@ def main() -> int:
                     if "SyntaxError" in err:
                         all_errors.append(f"[{skill_dir.name}] {err}")
                     else:
-                        print(f"  ⚠️ Warning [{skill_dir.name}]: {err}")
+                        print(f"  Warning [{skill_dir.name}]: {err}")
 
     if all_errors:
-        print("\n❌ Validation Failed with the following errors:")
+        print("\nValidation failed with the following errors:")
         for e in all_errors:
             print(f"  - {e}")
         return 1
 
-    print(f"✅ All {len(skill_dirs)} skill folders passed syntax & structure validation!")
+    print(f"All {len(skill_dirs)} skill folders passed syntax and structure validation!")
     return 0
 
 

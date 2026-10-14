@@ -102,7 +102,7 @@ def main():
         updated = f"# AI Product Factory\n\nCentralized hub of modular, schema-validated AI Agent Skills.\n\n## Automated Skill Registry\n\n{table_md}\n"
 
     readme_path.write_text(updated, encoding="utf-8")
-    print(f"✅ Updated README.md with {len(skills)} indexed skills.")
+    print(f"Updated README.md with {len(skills)} indexed skills.")
 
 
 if __name__ == "__main__":
