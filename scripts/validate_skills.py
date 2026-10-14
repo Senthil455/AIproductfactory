@@ -27,16 +27,21 @@ def parse_simple_frontmatter(md_text: str) -> dict[str, str]:
         if ":" in line and not line.strip().startswith("#"):
             k, v = line.split(":", 1)
             data[k.strip()] = v.strip().strip('"').strip("'")
-    # Block-scalar descriptions (| and >) are common in imported skills.
-    # Parse the indented continuation without a third-party YAML dependency.
-    for key, value in list(data.items()):
-        if value in ("|", ">", "|-", ">-", "|+", ">+"):
-            found = re.search(
-                rf"(?m)^{re.escape(key)}:\\s*[>|][-+]?\\s*\\n((?:[ \\t]+[^\\n]*\\n?)*)",
-                block,
-            )
-            if found:
-                data[key] = " ".join(x.strip() for x in found.group(1).splitlines() if x.strip())
+    # Read YAML block scalar descriptions without external YAML dependencies.
+    lines = block.splitlines()
+    for i, line in enumerate(lines):
+        if not line.startswith("description:"):
+            continue
+        indicator = line.split(":", 1)[1].strip()
+        if indicator not in ("|", ">", "|-", ">-", "|+", ">+"):
+            continue
+        desc_lines = []
+        for following in lines[i + 1:]:
+            if following.strip() and not following[0].isspace():
+                break
+            if following.strip():
+                desc_lines.append(following.strip())
+        data["description"] = " ".join(desc_lines)
     return data
 
 
